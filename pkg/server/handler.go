@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"runtime"
 	"sync"
 	"time"
 
@@ -136,7 +137,7 @@ func (e *MockHandlerEngine) SenderLaunch(localPath string, remote string, timeou
 }
 
 func (e *MockHandlerEngine) mockProcessing(ctx context.Context, filePath string, progressUpdateFunc func(int64)) error {
-	if err := GenerateTestFile(filePath, MockProcessingSize); err != nil {
+	if err := GenerateTestFile(filePath, MockTestFileSize); err != nil {
 		return err
 	}
 
@@ -153,6 +154,13 @@ func (e *MockHandlerEngine) mockProcessing(ctx context.Context, filePath string,
 }
 
 const MockProcessingSize = 100
+
+var MockTestFileSize = func() int64 {
+	if runtime.GOARCH == "s390x" {
+		return 4096
+	}
+	return MockProcessingSize
+}()
 
 func GenerateTestFile(filePath string, size int64) error {
 	f, err := os.Create(filePath)

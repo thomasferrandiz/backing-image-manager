@@ -165,7 +165,7 @@ func (s *TestSuite) TestManagerSyncAndFetch(c *C) {
 			} else {
 				sourceFileName := "test-source-file-" + strconv.Itoa(i)
 				sourceFilePath := filepath.Join(testDiskPath, types.DataSourceDirectoryName, sourceFileName)
-				err := GenerateTestFile(sourceFilePath, MockProcessingSize)
+				err := GenerateTestFile(sourceFilePath, MockTestFileSize)
 				c.Assert(err, IsNil)
 				checksum, err := util.GetFileChecksum(sourceFilePath)
 				c.Assert(err, IsNil)
@@ -261,7 +261,7 @@ func (s *TestSuite) TestSingleBackingImageFetch(c *C) {
 	for i := 0; i < count; i++ {
 		sourceFileName := "test-source-file-" + strconv.Itoa(i)
 		sourceFilePath := filepath.Join(testDiskPath, types.DataSourceDirectoryName, sourceFileName)
-		err := GenerateTestFile(sourceFilePath, MockProcessingSize)
+		err := GenerateTestFile(sourceFilePath, MockTestFileSize)
 		c.Assert(err, IsNil)
 		checksum, err := util.GetFileChecksum(sourceFilePath)
 		c.Assert(err, IsNil)
@@ -300,7 +300,7 @@ func (s *TestSuite) TestBackingImageSimultaneousProcessingAndCancellation(c *C) 
 	for i := 0; i < count; i++ {
 		sourceFileName := "test-source-file-" + strconv.Itoa(i)
 		sourceFilePath := filepath.Join(testDiskPath, types.DataSourceDirectoryName, sourceFileName)
-		err := GenerateTestFile(sourceFilePath, MockProcessingSize)
+		err := GenerateTestFile(sourceFilePath, MockTestFileSize)
 		c.Assert(err, IsNil)
 
 		bi := NewBackingImage(name, uuid, "", testDiskPath, MockProcessingSize, mockHandlerFactory.NewHandler(), make(chan interface{}, 100))
