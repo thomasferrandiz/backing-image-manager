@@ -29,10 +29,10 @@ steps:
 
 - name: publish-tagged-image
   image: rancher/drone-images:docker-s390x
+  volumes:
+    - name: socket
+      path: /var/run/docker.sock
   settings:
-    volumes:
-      - name: socket
-        path: /var/run/docker.sock
     build_args:
     - ARCH=s390x
     custom_dns: 1.1.1.1
