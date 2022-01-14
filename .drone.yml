@@ -46,8 +46,6 @@ steps:
   when:
     event:
     - tag
-    instance:
-      - drone-publish.longhorn.io
 
 volumes:
 - name: socket
